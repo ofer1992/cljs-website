@@ -3,12 +3,14 @@
     [reagent.dom :as rdom]
     [reagent.core :as r]
     [gallery.views.bin2dec :as bin2dec]
+    [gallery.views.json2csv :as json2csv]
     ))
 ;; define a state atom that determines which project is displayed
 (defonce project (r/atom nil))
 
 ;; map of projects availble
-(def projects {"bin2dec" bin2dec/main-panel})
+(def projects {"bin2dec" bin2dec/main-panel
+               "json2csv" json2csv/main-panel})
 
 
 (defn project-component [component]
