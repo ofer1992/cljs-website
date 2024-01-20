@@ -3,7 +3,6 @@
 (ns gallery.views.json2csv
   (:require
    [reagent.core :as r]
-   [clojure.data.json :as json]
    [clojure.string :as str]))
 
 (defn atom-input [value]
@@ -13,18 +12,9 @@
 
 (def json (r/atom "{\"a\": 1, \"b\": 2}"))
 
-;; (defn json-parser
-;;   "parses json into a map. json must be a shallow object with no nesting."
-;;   [s]
-;;   (-> s
-;;       (str/replace " " "")
-;;       (str/replace "\"" "")
-;;       (#(subs % 1 (- (count %) 1)))
-;;       (str/split #"[,:]")
-;;       (->>
-;;        (apply hash-map))))
 
-(defn json-parser [s] (json/read-str s))
+(defn json-parser [json-str]
+  (js->clj (.parse js/JSON json-str) :keywordize-keys true))
 (defn key-string [m] (str/join "," (map first m)))
 (defn val-string [m] (str/join "," (map second m)))
 
